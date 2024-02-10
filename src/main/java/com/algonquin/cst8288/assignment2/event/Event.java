@@ -97,6 +97,10 @@ public abstract class Event {
 
 	// Every library as it own admission fee
 	public abstract void calculateAdmissionFee();
+
+    public void displayInfo() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     
 }

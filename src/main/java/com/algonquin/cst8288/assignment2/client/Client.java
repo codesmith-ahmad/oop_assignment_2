@@ -1,25 +1,27 @@
 package com.algonquin.cst8288.assignment2.client;
 
+import com.algonquin.cst8288.assignment2.database.*;
+import com.algonquin.cst8288.assignment2.event.Event;
+import com.algonquin.cst8288.assignment2.factory.*;
+import com.algonquin.cst8288.assignment2.logger.*;
+
 public class Client {
 	
     public static void main(String[] args) {
         // Creating Academic Event
-        EventCreator academicEventCreator = new AcademicEventCreator();
-        Event academicEvent = academicEventCreator.createEvent();
+        Event academicEvent = (new AcademicEventCreator()).createEvent();
         academicEvent.displayInfo();
-        System.out.println("Admission Fee: $" + academicEvent.calculateAdmissionFee());
+        System.out.println("Admission Fee: $" + academicEvent.getAdmissionFees());
 
         // Creating Public Event
-        EventCreator publicEventCreator = new PublicEventCreator();
-        Event publicEvent = publicEventCreator.createEvent();
+        Event publicEvent = (new PublicEventCreator()).createEvent();
         publicEvent.displayInfo();
-        System.out.println("Admission Fee: $" + publicEvent.calculateAdmissionFee());
+        System.out.println("Admission Fee: $" + publicEvent.getAdmissionFees());
 
         // Database operations
         DBConnection dbConnection = DBConnection.getInstance();
-        DBOperations dbOperations = new DBOperations();
-        dbOperations.saveEvent(academicEvent);
-        dbOperations.saveEvent(publicEvent);
+        DBOperations.createEvent(academicEvent);
+        DBOperations.createEvent(publicEvent);
 
         // Logging
         LMSLogger logger = LMSLogger.getInstance();
