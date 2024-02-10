@@ -11,5 +11,5 @@ import com.algonquin.cst8288.assignment2.event.Event;
  * @author ahmad
  */
 public abstract class EventCreator {
-    public abstract Event createEvent();
+    public abstract Event createEvent(String eventType);
 }

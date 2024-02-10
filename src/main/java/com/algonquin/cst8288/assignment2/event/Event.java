@@ -1,106 +1,49 @@
 package com.algonquin.cst8288.assignment2.event;
 
-public abstract class Event {
-    
-	
-    protected String eventName;
-    protected String eventDescription;
-    protected String eventActivities;
-    protected double admissionFees;
-    
-    
-    
-    public Event() {
-
-    }
-    
+public interface Event {
  
 	/**
 	 * @return the eventName
 	 */
-	public String getEventName() {
-		return eventName;
-	}
-
-
-
-
+	public String getEventName();
 
 	/**
 	 * @param eventName the eventName to set
 	 */
-	public void setEventName(String eventName) {
-		this.eventName = eventName;
-	}
-
-
-
-
+	public void setEventName(String eventName);
 
 	/**
 	 * @return the eventDescription
 	 */
-	public String getEventDescription() {
-		return eventDescription;
-	}
-
-
-
-
+	public String getEventDescription();
 
 	/**
 	 * @param eventDescription the eventDescription to set
 	 */
-	public void setEventDescription(String eventDescription) {
-		this.eventDescription = eventDescription;
-	}
-
-
-
-
+	public void setEventDescription(String eventDescription);
 
 	/**
 	 * @return the eventActivities
 	 */
-	public String getEventActivities() {
-		return eventActivities;
-	}
-
-
-
-
+	public String getEventActivities();
 
 	/**
 	 * @param eventActivities the eventActivities to set
 	 */
-	public void setEventActivities(String eventActivities) {
-		this.eventActivities = eventActivities;
-	}
-
-
+	public void setEventActivities(String eventActivities);
 
 	/**
 	 * @return the admissionFees
 	 */
-	public double getAdmissionFees() {
-		return admissionFees;
-	}
-
+	public double getAdmissionFees();
 
 	/**
 	 * @param admissionFees the admissionFees to set
 	 */
-	public void setAdmissionFees(double admissionFees) {
-		this.admissionFees = admissionFees;
-	}
-
+	public void setAdmissionFees(double admissionFees);
 
 	// Every library as it own admission fee
-	public abstract void calculateAdmissionFee();
+	public double calculateAdmissionFee();
 
-    public void displayInfo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    
+        public void displayInfo();
 }

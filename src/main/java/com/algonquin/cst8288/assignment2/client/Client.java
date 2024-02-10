@@ -8,6 +8,14 @@ import com.algonquin.cst8288.assignment2.logger.*;
 public class Client {
 	
     public static void main(String[] args) {
+        
+        Event[] events = {
+            (new AcademicEventCreator()).createEvent("workshop"),
+            (new AcademicEventCreator()).createEvent("booklaunch"),
+            (new PublicEventCreator()).createEvent("story"),
+            (new PublicEventCreator()).createEvent("movie")
+        }
+        
         // Creating Academic Event
         Event academicEvent = (new AcademicEventCreator()).createEvent();
         academicEvent.displayInfo();

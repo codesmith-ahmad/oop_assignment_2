@@ -1,7 +1,7 @@
 
 package com.algonquin.cst8288.assignment2.factory;
 
-import com.algonquin.cst8288.assignment2.event.Event;
+import com.algonquin.cst8288.assignment2.event.*;
 
 /**
  *
@@ -10,8 +10,14 @@ import com.algonquin.cst8288.assignment2.event.Event;
 public class PublicEventCreator extends EventCreator{
 
     @Override
-    public Event createEvent() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Event createEvent(String eventType) {
+        switch (eventType) {
+            case "story":
+                return new KidsStoryEvent();
+            case "movie":
+                return new MovieNightEvent();
+            default:
+                throw new IllegalArgumentException("Invalid event type: " + eventType);
+        }
     }
-    
 }
