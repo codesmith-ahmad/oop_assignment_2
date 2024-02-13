@@ -2,6 +2,10 @@ package com.algonquin.cst8288.assignment2.database;
 
 import java.sql.Connection;
 
+/*
+DBConnection is the DriverManager
+Connection is the actual connection via which queries will be sent
+*/
 public class DBConnection {
 	
 	private static Connection connection = null;
@@ -10,8 +14,17 @@ public class DBConnection {
 	private String passwordString = "root";
 	private String driverString = "com.mysql.cj.jdbc.Driver";
 
-    public static DBConnection getInstance() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        private DBConnection(){};
+        
+        /* 
+         * Static method that returns reference to single instance.
+         * Initializes it only once, if not initialized before.
+         */
+        public static DBConnection getInstance() {
+        if (connection == null) {
+            connection = new DBConnection();
+        }
+        return connection;
     }
 	
 }
