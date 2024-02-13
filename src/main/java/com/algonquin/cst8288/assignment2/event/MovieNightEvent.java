@@ -15,7 +15,7 @@ public class MovieNightEvent implements Event{
     protected String eventActivities;
     protected double admissionFees;
     
-    public MovieNightEvent() {}
+    public MovieNightEvent() {this.admissionFees = calculateAdmissionFees();}
  
     /**
      * @return the eventName
@@ -83,12 +83,12 @@ public class MovieNightEvent implements Event{
 
     // Every library as it own admission fee
     @Override
-    public double calculateAdmissionFee(){
+    public double calculateAdmissionFees(){
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void displayInfo() {
+    public String toString() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

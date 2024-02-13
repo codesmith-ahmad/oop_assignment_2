@@ -83,12 +83,12 @@ public class BookLaunchEvent implements Event{
 
     // Every library as it own admission fee
     @Override
-    public double calculateAdmissionFee(){
+    public double calculateAdmissionFees(){
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void displayInfo() {
+    public String toString() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

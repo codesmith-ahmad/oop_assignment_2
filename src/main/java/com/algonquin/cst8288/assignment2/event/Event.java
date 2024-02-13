@@ -43,7 +43,8 @@ public interface Event {
 	public void setAdmissionFees(double admissionFees);
 
 	// Every library as it own admission fee
-	public double calculateAdmissionFee();
+	public double calculateAdmissionFees();
 
-        public void displayInfo();
+        @Override
+        public String toString();
 }

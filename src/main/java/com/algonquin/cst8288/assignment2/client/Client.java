@@ -4,27 +4,21 @@ import com.algonquin.cst8288.assignment2.database.*;
 import com.algonquin.cst8288.assignment2.event.Event;
 import com.algonquin.cst8288.assignment2.factory.*;
 import com.algonquin.cst8288.assignment2.logger.*;
+import java.util.HashMap;
 
 public class Client {
 	
     public static void main(String[] args) {
         
-        Event[] events = {
-            (new AcademicEventCreator()).createEvent("workshop"),
-            (new AcademicEventCreator()).createEvent("booklaunch"),
-            (new PublicEventCreator()).createEvent("story"),
-            (new PublicEventCreator()).createEvent("movie")
-        }
+        HashMap<String, Event> events = new HashMap<String, Event>();
         
-        // Creating Academic Event
-        Event academicEvent = (new AcademicEventCreator()).createEvent();
-        academicEvent.displayInfo();
-        System.out.println("Admission Fee: $" + academicEvent.getAdmissionFees());
-
-        // Creating Public Event
-        Event publicEvent = (new PublicEventCreator()).createEvent();
-        publicEvent.displayInfo();
-        System.out.println("Admission Fee: $" + publicEvent.getAdmissionFees());
+        EventCreator academicEventCreator = new AcademicEventCreator();
+        EventCreator publicEventCreator = new PublicEventCreator();
+        
+        events.put("workshop", academicEventCreator.createEvent("workshop"));
+        events.put("book",     academicEventCreator.createEvent("booklaunch"));
+        events.put("story",      publicEventCreator.createEvent("story"));
+        events.put("movie",      publicEventCreator.createEvent("movie"));
 
         // Database operations
         DBConnection dbConnection = DBConnection.getInstance();
