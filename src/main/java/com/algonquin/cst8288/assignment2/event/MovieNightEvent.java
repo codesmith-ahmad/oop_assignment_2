@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.algonquin.cst8288.assignment2.event;
 
 import com.algonquin.cst8288.assignment2.constants.Constants;
@@ -12,7 +9,7 @@ import com.algonquin.cst8288.assignment2.constants.Constants;
  */
 public class MovieNightEvent implements Event{
     
-    protected String eventName;
+    protected String eventName = "movie night";
     protected String eventDescription;
     protected String eventActivities;
     protected double admissionFees;
@@ -91,7 +88,12 @@ public class MovieNightEvent implements Event{
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         return "MovieNightEvent{" +
+            "eventName='" + eventName + '\'' +
+            ", eventDescription='" + eventDescription + '\'' +
+            ", eventActivities='" + eventActivities + '\'' +
+            ", admissionFees=" + admissionFees +
+            '}';
     }
 
 }

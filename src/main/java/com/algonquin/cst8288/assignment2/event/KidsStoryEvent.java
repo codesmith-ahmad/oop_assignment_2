@@ -12,7 +12,7 @@ import com.algonquin.cst8288.assignment2.constants.Constants;
  */
 public class KidsStoryEvent implements Event{
     
-    protected String eventName;
+    protected String eventName = "kids story";
     protected String eventDescription;
     protected String eventActivities;
     protected double admissionFees;
@@ -91,7 +91,12 @@ public class KidsStoryEvent implements Event{
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "KidsStoryEvent{" +
+            "eventName='" + eventName + '\'' +
+            ", eventDescription='" + eventDescription + '\'' +
+            ", eventActivities='" + eventActivities + '\'' +
+            ", admissionFees=" + admissionFees +
+            '}';
     }
 
 }
