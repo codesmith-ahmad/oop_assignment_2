@@ -11,11 +11,14 @@ public class Client {
 	
     public static void main(String[] args) {
         
+        // This one will hold events
         HashMap<String, Event> events = new HashMap<>();
         
+        // Create two factories
         EventCreator academicEventCreator = new AcademicEventCreator();
         EventCreator publicEventCreator = new PublicEventCreator();
         
+        // Each factory can build two different types of Events, upon request
         events.put("workshop", academicEventCreator.createEvent("workshop"));
         events.put("book",     academicEventCreator.createEvent("booklaunch"));
         events.put("story",      publicEventCreator.createEvent("story"));
@@ -29,6 +32,15 @@ public class Client {
                     + events.get(i)
             );
         }
+        
+        // step 5
+        connectToDatabase();
+        
+        // step 6
+        operateDatabase();
+        
+        // step 7
+        LMSLogger();
 
         // Database operations
         DBConnection dbConnection = DBConnection.getInstance();
@@ -81,5 +93,17 @@ public class Client {
     private static void pause(){
         System.out.print("\n...");
         (new Scanner(System.in)).nextLine();
+    }
+
+    private static void connectToDatabase() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private static void operateDatabase() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private static void LMSLogger() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
