@@ -12,12 +12,9 @@ public class PublicEventCreator extends EventCreator{
     @Override
     public Event createEvent(String eventType) {
         switch (eventType) {
-            case "story":
-                return new KidsStoryEvent();
-            case "movie":
-                return new MovieNightEvent();
-            default:
-                throw new IllegalArgumentException("Invalid event type: " + eventType);
+            case "story" -> {return new KidsStoryEvent();}
+            case "movie" -> {return new MovieNightEvent();}
+            default -> throw new IllegalArgumentException("Invalid event type: " + eventType);
         }
     }
 }

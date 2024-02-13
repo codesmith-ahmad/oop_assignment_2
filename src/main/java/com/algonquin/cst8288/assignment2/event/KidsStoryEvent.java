@@ -4,6 +4,8 @@
  */
 package com.algonquin.cst8288.assignment2.event;
 
+import com.algonquin.cst8288.assignment2.constants.Constants;
+
 /**
  *
  * @author ahmad
@@ -84,7 +86,7 @@ public class KidsStoryEvent implements Event{
     // Every library as it own admission fee
     @Override
     public double calculateAdmissionFees(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        return Constants.KIDS_STORYTIME_DURATION * Constants.KIDS_STORYTIME_RATE;
     }
 
     @Override

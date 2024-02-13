@@ -4,6 +4,8 @@
  */
 package com.algonquin.cst8288.assignment2.event;
 
+import com.algonquin.cst8288.assignment2.constants.Constants;
+
 /**
  *
  * @author ahmad
@@ -84,7 +86,7 @@ public class MovieNightEvent implements Event{
     // Every library as it own admission fee
     @Override
     public double calculateAdmissionFees(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        return Constants.MOVIE_NIGHT_DURATION * Constants.MOVIE_NIGHT_RATE;
     }
 
     @Override
