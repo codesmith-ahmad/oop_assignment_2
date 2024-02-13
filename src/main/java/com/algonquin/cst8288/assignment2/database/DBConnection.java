@@ -6,8 +6,8 @@ public class DBConnection {
 	
 	private static Connection connection = null;
         private String serverUrl = "jdbc:mysql://localhost:3306/bookvault";
-	private String userString = "ahmad";
-	private String passwordString = "123";
+	private String userString = "CST8288";
+	private String passwordString = "root";
 	private String driverString = "com.mysql.cj.jdbc.Driver";
 
     public static DBConnection getInstance() {
