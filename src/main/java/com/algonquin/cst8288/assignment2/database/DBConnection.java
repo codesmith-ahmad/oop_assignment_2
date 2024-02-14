@@ -2,6 +2,7 @@ package com.algonquin.cst8288.assignment2.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /*
@@ -27,7 +28,7 @@ public class DBConnection {
 
         private DBConnection(){
             try {Connection connection = DriverManager.getConnection(serverUrl, userString, passwordString);}
-            catch (Exception e) {e.printStackTrace();}
+            catch (SQLException e) {System.err.println("EXCEPTION AT database/DBCOnnection/DBConnection()");}
         };
         
         /* 
@@ -36,7 +37,7 @@ public class DBConnection {
          */
         public static DBConnection getInstance() {
             if (connection == null) {
-                dbc = new DBConnection(); // TODO, see notes
+                dbc = new DBConnection();
             }
             return dbc;
         }

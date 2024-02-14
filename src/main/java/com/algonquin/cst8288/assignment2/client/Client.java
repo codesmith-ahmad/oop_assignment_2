@@ -12,52 +12,19 @@ public class Client {
 	
     public static void main(String[] args) {
         
-        // Create two factories
-        EventCreator academicEventCreator = new AcademicEventCreator();
-        EventCreator publicEventCreator = new PublicEventCreator();
-        
-        // This one will hold events created by factories above
-        HashMap<String, Event> events = new HashMap<>();
-        
-        // Each factory can build two different types of Events, upon request
-        events.put("workshop", academicEventCreator.createEvent("workshop"));
-        events.put("book",     academicEventCreator.createEvent("booklaunch"));
-        events.put("story",      publicEventCreator.createEvent("story"));
-        events.put("movie",      publicEventCreator.createEvent("movie"));
-        
         begin();
         
-        for (String i : events.keySet()){
-            System.out.println(
-                    "\n~~ " + i + " ~~\n"
-                    + events.get(i)
-            );
-        }
+        // step 1 - 3
+        createEvents();
         
         // step 5
         connectToDatabase();
         
         // step 6
-        operateDatabase();
+        operateDatabase(); //TODO
         
         // step 7
-        LMSLogger();
-
-        // Database operations
-        DBConnection dbConnection = DBConnection.getInstance();
-        DBOperations.createEvent(events.get("workshop"));
-        DBOperations.createEvent(events.get("book"));
-        DBOperations.createEvent(events.get("story"));
-        DBOperations.createEvent(events.get("movie"));
-
-        // Logging
-        LMSLogger logger = LMSLogger.getInstance();
-        try {
-            // Simulating an exception
-            throw new NullPointerException("Simulated NullPointerException");
-        } catch (NullPointerException e) {
-            logger.log(LogLevel.ERROR, "Exception caught: " + e.getMessage());
-        }
+        LMSLogger(); //TODO
         
         end();
     }
@@ -95,6 +62,28 @@ public class Client {
         System.out.print("\n...");
         (new Scanner(System.in)).nextLine();
     }
+    
+    private static void createEvents(){
+        // Create two factories
+        EventCreator academicEventCreator = new AcademicEventCreator();
+        EventCreator publicEventCreator = new PublicEventCreator();
+        
+        // This one will hold events created by factories above
+        HashMap<String, Event> events = new HashMap<>();
+        
+        // Each factory can build two different types of Events, upon request
+        events.put("workshop", academicEventCreator.createEvent("workshop"));
+        events.put("book",     academicEventCreator.createEvent("booklaunch"));
+        events.put("story",      publicEventCreator.createEvent("story"));
+        events.put("movie",      publicEventCreator.createEvent("movie"));
+        
+        for (String i : events.keySet()){
+            System.out.println(
+                    "\n~~ " + i + " ~~\n"
+                    + events.get(i)
+            );
+        }
+    }
 
     private static void connectToDatabase() {
         // fetch connection info
@@ -104,10 +93,17 @@ public class Client {
     }
 
     private static void operateDatabase() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // Database operations
     }
 
     private static void LMSLogger() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // Logging
+        LMSLogger logger = LMSLogger.getInstance();
+        try {
+            // Simulating an exception
+            throw new NullPointerException("Simulated NullPointerException");
+        } catch (NullPointerException e) {
+            logger.log(LogLevel.ERROR, "Exception caught: " + e.getMessage());
+        }
     }
 }
