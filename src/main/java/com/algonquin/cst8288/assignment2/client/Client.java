@@ -4,6 +4,7 @@ import com.algonquin.cst8288.assignment2.database.*;
 import com.algonquin.cst8288.assignment2.event.Event;
 import com.algonquin.cst8288.assignment2.factory.*;
 import com.algonquin.cst8288.assignment2.logger.*;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -11,12 +12,12 @@ public class Client {
 	
     public static void main(String[] args) {
         
-        // This one will hold events
-        HashMap<String, Event> events = new HashMap<>();
-        
         // Create two factories
         EventCreator academicEventCreator = new AcademicEventCreator();
         EventCreator publicEventCreator = new PublicEventCreator();
+        
+        // This one will hold events created by factories above
+        HashMap<String, Event> events = new HashMap<>();
         
         // Each factory can build two different types of Events, upon request
         events.put("workshop", academicEventCreator.createEvent("workshop"));
@@ -96,7 +97,10 @@ public class Client {
     }
 
     private static void connectToDatabase() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // fetch connection info
+        var prop = new HashMap<String,String>();
+        DBConnection dbc = DBConnection.getInstance();
+        Connection c = dbc.getConnection();
     }
 
     private static void operateDatabase() {
