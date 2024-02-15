@@ -4,29 +4,33 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class LMSLogger {
     
     private static LMSLogger instance = null;
-    private final String logFilePath = "logs.txt"; // Path is src\..
+    private final String logFilePath = "logs.txt"; // Path is src\.. 
+    private boolean cleared = false; // flag to indicate FileWriter to clear file the first time log is called
     
-    private LMSLogger() throws FileNotFoundException {new PrintWriter(logFilePath).close();}
+    private LMSLogger(){}
 
     public static LMSLogger getInstance() {
-        try {
-            if (instance == null){return new LMSLogger();}
-            else {return instance;} 
+        if (instance == null){
+            instance = new LMSLogger();
         }
-        catch (FileNotFoundException e) {return null;}
+        return instance;
     }
     
     public void log(String s){log(LogLevel.INFO,s);}
 
     public void log(LogLevel lvl, String s) {
         
-        try (var writer = new PrintWriter(new FileWriter(logFilePath, true))) {
+        try (var writer = new PrintWriter(new FileWriter(logFilePath, cleared))) {
+            if (!cleared){cleared = true;}
+            
             // Get current timestamp
             LocalDateTime timestamp = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

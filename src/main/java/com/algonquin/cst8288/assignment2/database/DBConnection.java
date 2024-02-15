@@ -15,7 +15,7 @@ ADD TO NOTES:
         - $ instance = null
         -   properties
         -   Constructor
-        + $ getInstance {return new instance if null, same if not}
+        + $ getInstance {set instance = new if null, then return instance}
         +   getProperties
 */
 public class DBConnection {

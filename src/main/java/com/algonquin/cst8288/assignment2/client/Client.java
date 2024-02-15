@@ -18,13 +18,13 @@ public class Client {
         var events = createEvents();
         
         // step 5 in lab instructions: connect to database
-//        DBConnection.getInstance().getConnection();
+        DBConnection.getInstance().getConnection();
         
-//        initializeDatabase("bookvault");
-//        
-//        populateDatabase(events);
-//        
-//        // step 5 and 6 in lab instruction
+        initializeDatabase("bookvault");
+        
+        populateDatabase(events);
+        
+        // step 5 and 6 in lab instruction
 //        operateDatabase(); // loop; all ressources closed within
         
         l.log("END OF PROGRAM");
