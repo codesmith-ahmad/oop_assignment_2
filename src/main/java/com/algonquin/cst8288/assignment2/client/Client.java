@@ -68,8 +68,8 @@ public class Client {
             
             while(r.next()){
                 for (int i = 1; i <= m.getColumnCount() ; i++) {
-                    System.out.printf("%s %s",
-                            m.getColumnClassName(i),
+                    System.out.println("\n"+
+                            m.getColumnName(i) + ": " +
                             r.getObject(i));
                 }
             }

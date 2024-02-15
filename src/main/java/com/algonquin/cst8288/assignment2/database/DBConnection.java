@@ -27,7 +27,7 @@ public class DBConnection {
 	private String driverString = "com.mysql.cj.jdbc.Driver";
 
         private DBConnection(){
-            try {Connection connection = DriverManager.getConnection(serverUrl, userString, passwordString);}
+            try {this.connection = DriverManager.getConnection(serverUrl, userString, passwordString);}
             catch (SQLException e) {System.err.println("EXCEPTION AT database/DBCOnnection/DBConnection()");}
         };
         
