@@ -17,19 +17,18 @@ public class Client {
         
         log("Application starting...");
         
-        // step 1 - 3
-        createEvents();
+        // step 1 - 3 in lab instructions
+        var events = createEvents();
         
-        // step 5
-        connectToDatabase();
+        populateDatabase(events);
         
-        // step 6
-        operateDatabase(connection); // loop; all ressources closed within
+        // step 5 and 6 in lab instruction
+        operateDatabase(); // loop; all ressources closed within
         
         log("END OF PROGRAM");
     }
     
-    private static void createEvents(){
+    private static HashMap<String,Event> createEvents(){
         // Create two factories
         EventCreator academicEventCreator = new AcademicEventCreator();
         EventCreator publicEventCreator = new PublicEventCreator();
@@ -51,16 +50,34 @@ public class Client {
                     + events.get(i)
             );
         }
+        
+        return events;
     }
 
     private static Connection connectToDatabase() {
-        DBConnection dbc = DBConnection.getInstance();
-        Client.connection = dbc.getConnection();
-        log("Database connected");
-        return dbc.getConnection();
+        return DBConnection.getInstance().getConnection();       
+    }
+    
+    private static void populateDatabase(HashMap<String,Event> map) {
+        String initialQuery = """
+                              DROP DATABASE IF EXISTS bookvault;
+                              
+                              CREATE DATABASE bookvault;
+                              
+                              USE bookvault;
+                              
+                              CREATE TABLE IF NOT EXISTS events (
+                                  event_id INT PRIMARY KEY AUTO_INCREMENT,
+                                  event_name VARCHAR(255) NOT NULL,
+                                  event_description TEXT,
+                                  event_activities TEXT,
+                                  admission_fees DECIMAL(4, 2) NOT NULL
+                                  
+                              );""";
+        
     }
 
-    private static void operateDatabase(Connection c) {
+    private static void operateDatabase() {
         
         log("Entered database operations loop");
         
@@ -68,30 +85,25 @@ public class Client {
         int isSELECT;
         
         while(true) {
-            query = DBOperations.takeQuery();   if (query.equals("exit")){break;}
+            Connection c = connectToDatabase(); // Step 5 in lab instuctions
+            DBOperations.setConnection(c);
+            query = DBOperations.takeQuery();
+                if (query.equals("exit")){break;}
             isSELECT = DBOperations.parse(query);
             
             switch (isSELECT) {
                 case 0 -> {
-                    DBOperations.executeUpdate(query, c);
+                    DBOperations.executeUpdate(query);
                     log("Executed update query: " + query);
                 }
                 case 1 -> {
-                    DBOperations.executeQuery(query, c);
+                    DBOperations.executeQuery(query);
                     log("Executed select query: " + query);
                 }
                 default -> throw new AssertionError();
             }
         }
         
-    }
-    
-    /**
-     * Pauses the program until the user presses Enter.
-     */
-    private static void pause(){
-        System.out.print("\n...");
-        (new Scanner(System.in)).nextLine();
     }
     
     // helper method
