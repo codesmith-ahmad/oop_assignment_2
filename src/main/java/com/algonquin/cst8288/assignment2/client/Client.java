@@ -60,52 +60,31 @@ public class Client {
 
     private static void operateDatabase(Connection c) {
         
-        String query = "exit"; //remove
+        String query;
         int isSELECT;
         
-        do {
-            query = takeQuery();
-            isSELECT = parse(query);
+        while(true) {
+            query = DBOperations.takeQuery();   if (query.equals("exit")){break;}
+            isSELECT = DBOperations.parse(query);
             
             switch (isSELECT) {
-                case 0 -> {executeUpdate(query, c);}
-                case 1 -> {executeQuery(query, c);}
+                case 0 -> {DBOperations.executeUpdate(query, c);}
+                case 1 -> {DBOperations.executeQuery(query, c);}
                 default -> throw new AssertionError();
             }
-            
-        } while (!query.equals("exit"));
+        }
         
     }
 
     private static void LMSLogger() {
-        // Logging
-        LMSLogger logger = LMSLogger.getInstance();
-        try {
-            // Simulating an exception
-            throw new NullPointerException("Simulated NullPointerException");
-        } catch (NullPointerException e) {
-            logger.log(LogLevel.ERROR, "Exception caught: " + e.getMessage());
-        }
-    }
-    
-    // Helper method
-    
-    private static String takeQuery() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("\nSQL> ");
-        String input = scanner.nextLine();
-        return input;
-    }
-    
-    private static int parse(String query) {
-        String[] words = query.trim().split("\\s+"); // Split the query into words
-
-        // Check if the first word (if any) is "SELECT" (case-insensitive)
-        if (words.length > 0 && "SELECT".equalsIgnoreCase(words[0])) {
-            return 1; // Return 1 if the first word is "SELECT"
-        } else {
-            return 0; // Return 0 otherwise
-        }
+//        // Logging
+//        LMSLogger logger = LMSLogger.getInstance();
+//        try {
+//            // Simulating an exception
+//            throw new NullPointerException("Simulated NullPointerException");
+//        } catch (NullPointerException e) {
+//            logger.log(LogLevel.ERROR, "Exception caught: " + e.getMessage());
+//        }
     }
     
     // Formatting methods
@@ -142,31 +121,5 @@ public class Client {
     private static void pause(){
         System.out.print("\n...");
         (new Scanner(System.in)).nextLine();
-    }
-
-    private static void executeUpdate(String query, Connection c) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private static void executeQuery(String query, Connection c) {
-        try ( // try-with-ressources for auto-closing
-                Statement s = c.createStatement(); // NEXT TIME REPLACE WITH PREPAREDSTATEMENT
-                ResultSet r = s.executeQuery(query);
-                )
-            {
-                ResultSetMetaData m = r.getMetaData();
-            
-                while(r.next()){
-                    for (int i = 1; i <= m.getColumnCount() ; i++) {
-                        System.out.println(
-                                m.getColumnName(i) + ": " +
-                                r.getObject(i));
-                    }
-                }
-            } catch (SQLException ex) {
-//            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception e) {
-                //Logger
-            }
     }
 }
