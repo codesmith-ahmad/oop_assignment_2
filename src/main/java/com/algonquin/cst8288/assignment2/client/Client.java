@@ -4,9 +4,11 @@ import com.algonquin.cst8288.assignment2.database.*;
 import com.algonquin.cst8288.assignment2.event.Event;
 import com.algonquin.cst8288.assignment2.factory.*;
 import com.algonquin.cst8288.assignment2.logger.*;
-import java.sql.Connection;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Client {
 	
@@ -14,17 +16,23 @@ public class Client {
         
         begin();
         
+        Object[] ressources = {null,null,null};
+        
         // step 1 - 3
         createEvents();
         
         // step 5
-        connectToDatabase();
+        Connection c = connectToDatabase();
+        ressources[2] = 
         
         // step 6
-        operateDatabase(); //TODO
+        Object[] ressources = operateDatabase(c); //TODO
         
         // step 7
         LMSLogger(); //TODO
+        
+        // Termination
+        closeDatabase();
         
         end();
     }
@@ -85,15 +93,27 @@ public class Client {
         }
     }
 
-    private static void connectToDatabase() {
-        // fetch connection info
-        var prop = new HashMap<String,String>();
+    private static Connection connectToDatabase() {
         DBConnection dbc = DBConnection.getInstance();
-        Connection c = dbc.getConnection();
+        return dbc.getConnection();
     }
 
-    private static void operateDatabase() {
-        // Database operations
+    private static Object[] operateDatabase(Connection c) {
+        Statement s;
+        try {
+            s = c.createStatement(); // NEXT ASSIGNMENT REPLACE WITH PREPAREDSTATEMENT
+            var r = s.executeQuery("SELECT * FROM events");
+            var meta = r.getMetaData();
+            
+            while(r.next()){
+                
+            }
+            
+            return new Object[]{r,s};
+        } catch (SQLException ex) {
+//            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     private static void LMSLogger() {
@@ -106,4 +126,8 @@ public class Client {
             logger.log(LogLevel.ERROR, "Exception caught: " + e.getMessage());
         }
     }
+
+    private static void closeDatabase(ResultSet r, Statement s, Connection c) {
+        
+    }   
 }
