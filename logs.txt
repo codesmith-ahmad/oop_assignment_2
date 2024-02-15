@@ -1,21 +1,18 @@
 
-[2024-02-15 15:20:08] logs.txt - INFO: 
-Application starting...
+[2024-02-15 17:22:01] logs.txt - INFO: 
+QUERY: DROP DATABASE IF EXISTS bookvault
+0 rows affected
 
-[2024-02-15 15:20:08] logs.txt - INFO: 
-Created two factories
+[2024-02-15 17:22:01] logs.txt - INFO: 
+QUERY: CREATE DATABASE bookvault
+1 row affected
 
-[2024-02-15 15:20:08] logs.txt - INFO: 
-Events created
+[2024-02-15 17:22:01] logs.txt - INFO: 
+QUERY: USE bookvault
+0 rows affected
 
-[2024-02-15 15:20:08] logs.txt - INFO: 
-Entered database operations loop
+[2024-02-15 17:22:01] logs.txt - INFO: 
+Schema bookvault initialized
 
-[2024-02-15 15:20:36] logs.txt - INFO: 
-Executed select query: select * from events
-
-[2024-02-15 15:20:50] logs.txt - INFO: 
-Executed update query: exit\
-
-[2024-02-15 15:20:55] logs.txt - INFO: 
+[2024-02-15 17:22:01] logs.txt - INFO: 
 END OF PROGRAM

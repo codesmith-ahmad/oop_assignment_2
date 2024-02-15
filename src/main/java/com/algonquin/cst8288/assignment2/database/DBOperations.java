@@ -1,5 +1,6 @@
 package com.algonquin.cst8288.assignment2.database;
 
+import com.algonquin.cst8288.assignment2.logger.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class DBOperations {
     
     private static Connection connection;
+    public static LMSLogger l = LMSLogger.getInstance();
     
     public static void setConnection(Connection c){
         DBOperations.connection = c;
@@ -34,21 +36,22 @@ public class DBOperations {
     }
 
     public static void executeUpdate(String query) {
+        if (connection == null){connection = DBConnection.getInstance().getConnection();}
         try (Statement s = connection.createStatement();) {
             int r = s.executeUpdate(query);
             String msg = r == 1 ?  " row affected" : " rows affected"; // grammar
-            System.out.println(r + msg);
+            l.log("QUERY: " + query + "\n" + r + msg);
         }
         catch (SQLException ex) {
-                System.out.println("SQL Error!");
-//            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            l.log(LogLevel.ERROR, ex.getMessage());
         }
         catch (Exception e) {
-                //Logger
+            l.log(LogLevel.ERROR, "ERROR!");
         }
     }
 
     public static void executeQuery(String query) {
+        if (connection == null){connection = DBConnection.getInstance().getConnection();}
         try ( // try-with-ressources for auto-closing
                 Statement s = connection.createStatement(); // NEXT TIME REPLACE WITH PREPAREDSTATEMENT
                 ResultSet r = s.executeQuery(query);
@@ -65,10 +68,9 @@ public class DBOperations {
                     System.out.println("-------------");
                 }
         } catch (SQLException ex) {
-                System.out.println("SQL Error!");
-//            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            l.log(LogLevel.ERROR, ex.getMessage());
         } catch (Exception e) {
-                //Logger
+            l.log(LogLevel.ERROR, "ERROR!");
         }
     }
 }

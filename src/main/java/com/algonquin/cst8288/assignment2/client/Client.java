@@ -4,35 +4,37 @@ import com.algonquin.cst8288.assignment2.database.*;
 import com.algonquin.cst8288.assignment2.event.Event;
 import com.algonquin.cst8288.assignment2.factory.*;
 import com.algonquin.cst8288.assignment2.logger.*;
-import java.sql.*;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Client {
     
-    static LMSLogger logger = LMSLogger.getInstance();
-    static Connection connection;
+    public static LMSLogger l = LMSLogger.getInstance();
 	
     public static void main(String[] args) {
         
-        log("Application starting...");
+        l.log("Application starting...");
         
         // step 1 - 3 in lab instructions
         var events = createEvents();
         
-        populateDatabase(events);
+        // step 5 in lab instructions: connect to database
+//        DBConnection.getInstance().getConnection();
         
-        // step 5 and 6 in lab instruction
-        operateDatabase(); // loop; all ressources closed within
+//        initializeDatabase("bookvault");
+//        
+//        populateDatabase(events);
+//        
+//        // step 5 and 6 in lab instruction
+//        operateDatabase(); // loop; all ressources closed within
         
-        log("END OF PROGRAM");
+        l.log("END OF PROGRAM");
     }
     
     private static HashMap<String,Event> createEvents(){
         // Create two factories
         EventCreator academicEventCreator = new AcademicEventCreator();
         EventCreator publicEventCreator = new PublicEventCreator();
-        log("Created two factories");
+        l.log("Created two factories");
         
         // This one will hold events created by factories above
         HashMap<String, Event> events = new HashMap<>();
@@ -42,7 +44,7 @@ public class Client {
         events.put("book",     academicEventCreator.createEvent("booklaunch"));
         events.put("story",      publicEventCreator.createEvent("story"));
         events.put("movie",      publicEventCreator.createEvent("movie"));
-        log("Events created");
+        l.log("Events created");
         
         for (String i : events.keySet()){
             System.out.println(
@@ -53,65 +55,66 @@ public class Client {
         
         return events;
     }
-
-    private static Connection connectToDatabase() {
-        return DBConnection.getInstance().getConnection();       
+    
+    private static void initializeDatabase(String schema) {
+        DBOperations.executeUpdate("DROP DATABASE IF EXISTS " + schema);
+        DBOperations.executeUpdate("CREATE DATABASE " + schema);
+        DBOperations.executeUpdate("USE " + schema);
+        l.log("Schema " + schema + " initialized");
     }
     
     private static void populateDatabase(HashMap<String,Event> map) {
-        String initialQuery = """
-                              DROP DATABASE IF EXISTS bookvault;
-                              
-                              CREATE DATABASE bookvault;
-                              
-                              USE bookvault;
-                              
-                              CREATE TABLE IF NOT EXISTS events (
-                                  event_id INT PRIMARY KEY AUTO_INCREMENT,
-                                  event_name VARCHAR(255) NOT NULL,
-                                  event_description TEXT,
-                                  event_activities TEXT,
-                                  admission_fees DECIMAL(4, 2) NOT NULL
-                                  
-                              );""";
         
+        String sql2 = """
+                     CREATE TABLE IF NOT EXISTS x (
+                        event_id INT PRIMARY KEY AUTO_INCREMENT,
+                        event_name VARCHAR(255) NOT NULL,
+                        event_description TEXT,
+                        event_activities TEXT,
+                        admission_fees DECIMAL(4, 2) NOT NULL
+                     );
+                     """;
+        
+        String sql = "";
+        for (Event e : map.values()){
+            sql += String.format(
+                    "INSERT INTO events VALUES ('%s','%s','%s',%f);\n",
+                    e.getEventName(),
+                    e.getEventDescription(),
+                    e.getEventActivities(),
+                    e.getAdmissionFees()
+                    );
+        }
+        DBOperations.executeUpdate(sql);
     }
 
     private static void operateDatabase() {
         
-        log("Entered database operations loop");
+        l.log("Entered database operations loop");
         
         String query;
         int isSELECT;
         
         while(true) {
-            Connection c = connectToDatabase(); // Step 5 in lab instuctions
-            DBOperations.setConnection(c);
             query = DBOperations.takeQuery();
-                if (query.equals("exit")){break;}
+            if (query.equals("exit")){
+                l.log("User input: " + query);
+                break;
+            }
+                
             isSELECT = DBOperations.parse(query);
             
             switch (isSELECT) {
                 case 0 -> {
                     DBOperations.executeUpdate(query);
-                    log("Executed update query: " + query);
+                    l.log("Executed update query: " + query);
                 }
                 case 1 -> {
                     DBOperations.executeQuery(query);
-                    log("Executed select query: " + query);
+                    l.log("Executed select query: " + query);
                 }
                 default -> throw new AssertionError();
             }
         }
-        
-    }
-    
-    // helper method
-    /**
-     * Shorthand for 
-     * @param message logger.log(LogLevel.INFO, message);
-     */
-    private static void log(String message){
-        logger.log(LogLevel.INFO, "\n" + message);
     }
 }

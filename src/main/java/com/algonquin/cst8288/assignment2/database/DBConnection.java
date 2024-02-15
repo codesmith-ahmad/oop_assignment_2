@@ -1,5 +1,6 @@
 package com.algonquin.cst8288.assignment2.database;
 
+import com.algonquin.cst8288.assignment2.logger.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -25,10 +26,17 @@ public class DBConnection {
 	private String userString = "CST8288";
 	private String passwordString = "root";
 	private String driverString = "com.mysql.cj.jdbc.Driver";
+        
+        public static LMSLogger l = LMSLogger.getInstance();
 
         private DBConnection(){
-            try {this.connection = DriverManager.getConnection(serverUrl, userString, passwordString);}
-            catch (SQLException e) {System.err.println("EXCEPTION AT database/DBCOnnection/DBConnection()");}
+            try {
+                DBConnection.connection = DriverManager.getConnection(serverUrl, userString, passwordString);
+                l.log("Connected to database (" + connection + ")");
+            }
+            catch (SQLException e) {
+                l.log(LogLevel.ERROR, "CONNECTION FAILED: " + e.getMessage());
+            }
         };
         
         /* 

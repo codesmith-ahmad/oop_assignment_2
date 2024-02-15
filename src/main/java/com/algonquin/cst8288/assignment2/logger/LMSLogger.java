@@ -21,6 +21,8 @@ public class LMSLogger {
         }
         catch (FileNotFoundException e) {return null;}
     }
+    
+    public void log(String s){log(LogLevel.INFO,s);}
 
     public void log(LogLevel lvl, String s) {
         
