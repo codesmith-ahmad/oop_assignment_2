@@ -16,26 +16,80 @@ public class Client {
         
         begin();
         
-        Object[] ressources = {null,null,null};
-        
         // step 1 - 3
         createEvents();
         
         // step 5
         Connection c = connectToDatabase();
-        ressources[2] = 
         
         // step 6
-        Object[] ressources = operateDatabase(c); //TODO
+        operateDatabase(c); // all ressources closed within
         
         // step 7
         LMSLogger(); //TODO
         
-        // Termination
-        closeDatabase();
-        
         end();
     }
+    
+    private static void createEvents(){
+        // Create two factories
+        EventCreator academicEventCreator = new AcademicEventCreator();
+        EventCreator publicEventCreator = new PublicEventCreator();
+        
+        // This one will hold events created by factories above
+        HashMap<String, Event> events = new HashMap<>();
+        
+        // Each factory can build two different types of Events, upon request
+        events.put("workshop", academicEventCreator.createEvent("workshop"));
+        events.put("book",     academicEventCreator.createEvent("booklaunch"));
+        events.put("story",      publicEventCreator.createEvent("story"));
+        events.put("movie",      publicEventCreator.createEvent("movie"));
+        
+        for (String i : events.keySet()){
+            System.out.println(
+                    "\n~~ " + i + " ~~\n"
+                    + events.get(i)
+            );
+        }
+    }
+
+    private static Connection connectToDatabase() {
+        DBConnection dbc = DBConnection.getInstance();
+        return dbc.getConnection();
+    }
+
+    private static void operateDatabase(Connection c) {
+        try ( // try-with-ressources for auto-closing
+            Statement s = c.createStatement(); // NEXT TIME REPLACE WITH PREPAREDSTATEMENT
+            ResultSet r = s.executeQuery("SELECT * FROM events");
+            )
+        {
+            ResultSetMetaData m = r.getMetaData();
+            
+            while(r.next()){
+                for (int i = 1; i <= m.getColumnCount() ; i++) {
+                    System.out.printf("%s %s",
+                            m.getColumnClassName(i),
+                            r.getObject(i));
+                }
+            }
+        } catch (SQLException ex) {
+//            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void LMSLogger() {
+        // Logging
+        LMSLogger logger = LMSLogger.getInstance();
+        try {
+            // Simulating an exception
+            throw new NullPointerException("Simulated NullPointerException");
+        } catch (NullPointerException e) {
+            logger.log(LogLevel.ERROR, "Exception caught: " + e.getMessage());
+        }
+    }
+    
+    // Formatting methods
     
         /**
      * Prints a message indicating the beginning of the program.
@@ -70,64 +124,4 @@ public class Client {
         System.out.print("\n...");
         (new Scanner(System.in)).nextLine();
     }
-    
-    private static void createEvents(){
-        // Create two factories
-        EventCreator academicEventCreator = new AcademicEventCreator();
-        EventCreator publicEventCreator = new PublicEventCreator();
-        
-        // This one will hold events created by factories above
-        HashMap<String, Event> events = new HashMap<>();
-        
-        // Each factory can build two different types of Events, upon request
-        events.put("workshop", academicEventCreator.createEvent("workshop"));
-        events.put("book",     academicEventCreator.createEvent("booklaunch"));
-        events.put("story",      publicEventCreator.createEvent("story"));
-        events.put("movie",      publicEventCreator.createEvent("movie"));
-        
-        for (String i : events.keySet()){
-            System.out.println(
-                    "\n~~ " + i + " ~~\n"
-                    + events.get(i)
-            );
-        }
-    }
-
-    private static Connection connectToDatabase() {
-        DBConnection dbc = DBConnection.getInstance();
-        return dbc.getConnection();
-    }
-
-    private static Object[] operateDatabase(Connection c) {
-        Statement s;
-        try {
-            s = c.createStatement(); // NEXT ASSIGNMENT REPLACE WITH PREPAREDSTATEMENT
-            var r = s.executeQuery("SELECT * FROM events");
-            var meta = r.getMetaData();
-            
-            while(r.next()){
-                
-            }
-            
-            return new Object[]{r,s};
-        } catch (SQLException ex) {
-//            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-
-    private static void LMSLogger() {
-        // Logging
-        LMSLogger logger = LMSLogger.getInstance();
-        try {
-            // Simulating an exception
-            throw new NullPointerException("Simulated NullPointerException");
-        } catch (NullPointerException e) {
-            logger.log(LogLevel.ERROR, "Exception caught: " + e.getMessage());
-        }
-    }
-
-    private static void closeDatabase(ResultSet r, Statement s, Connection c) {
-        
-    }   
 }
