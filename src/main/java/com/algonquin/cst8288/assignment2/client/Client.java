@@ -7,34 +7,33 @@ import com.algonquin.cst8288.assignment2.logger.*;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Client {
+    
+    static LMSLogger logger = LMSLogger.getInstance();
+    static Connection connection;
 	
     public static void main(String[] args) {
         
-        begin();
+        log("Application starting...");
         
         // step 1 - 3
         createEvents();
         
         // step 5
-        Connection c = connectToDatabase();
+        connectToDatabase();
         
         // step 6
-        operateDatabase(c); // loop; all ressources closed within
+        operateDatabase(connection); // loop; all ressources closed within
         
-        // step 7
-        LMSLogger(); //TODO
-        
-        end();
+        log("END OF PROGRAM");
     }
     
     private static void createEvents(){
         // Create two factories
         EventCreator academicEventCreator = new AcademicEventCreator();
         EventCreator publicEventCreator = new PublicEventCreator();
+        log("Created two factories");
         
         // This one will hold events created by factories above
         HashMap<String, Event> events = new HashMap<>();
@@ -44,6 +43,7 @@ public class Client {
         events.put("book",     academicEventCreator.createEvent("booklaunch"));
         events.put("story",      publicEventCreator.createEvent("story"));
         events.put("movie",      publicEventCreator.createEvent("movie"));
+        log("Events created");
         
         for (String i : events.keySet()){
             System.out.println(
@@ -55,10 +55,14 @@ public class Client {
 
     private static Connection connectToDatabase() {
         DBConnection dbc = DBConnection.getInstance();
+        Client.connection = dbc.getConnection();
+        log("Database connected");
         return dbc.getConnection();
     }
 
     private static void operateDatabase(Connection c) {
+        
+        log("Entered database operations loop");
         
         String query;
         int isSELECT;
@@ -68,51 +72,18 @@ public class Client {
             isSELECT = DBOperations.parse(query);
             
             switch (isSELECT) {
-                case 0 -> {DBOperations.executeUpdate(query, c);}
-                case 1 -> {DBOperations.executeQuery(query, c);}
+                case 0 -> {
+                    DBOperations.executeUpdate(query, c);
+                    log("Executed update query: " + query);
+                }
+                case 1 -> {
+                    DBOperations.executeQuery(query, c);
+                    log("Executed select query: " + query);
+                }
                 default -> throw new AssertionError();
             }
         }
         
-    }
-
-    private static void LMSLogger() {
-//        // Logging
-//        LMSLogger logger = LMSLogger.getInstance();
-//        try {
-//            // Simulating an exception
-//            throw new NullPointerException("Simulated NullPointerException");
-//        } catch (NullPointerException e) {
-//            logger.log(LogLevel.ERROR, "Exception caught: " + e.getMessage());
-//        }
-    }
-    
-    // Formatting methods
-    
-        /**
-     * Prints a message indicating the beginning of the program.
-     */
-    static void begin(){
-        System.out.println("""
-                           
-                           
-                           
-                           BEGIN *******************************
-                           """);
-    }
-    
-    /**
-     * Prints a message indicating the end of the program.
-     */
-    static void end(){
-        System.out.println("""
-                           
-                           OVER ******************************************
-                           
-                           
-                           
-                           
-                           """);
     }
     
     /**
@@ -121,5 +92,14 @@ public class Client {
     private static void pause(){
         System.out.print("\n...");
         (new Scanner(System.in)).nextLine();
+    }
+    
+    // helper method
+    /**
+     * Shorthand for 
+     * @param message logger.log(LogLevel.INFO, message);
+     */
+    private static void log(String message){
+        logger.log(LogLevel.INFO, "\n" + message);
     }
 }
