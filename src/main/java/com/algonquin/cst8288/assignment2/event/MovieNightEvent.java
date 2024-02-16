@@ -1,27 +1,32 @@
-
+/**
+ * Represents a Movie Night Event.
+ * Extends the Event interface and provides implementation for event-specific details.
+ */
 package com.algonquin.cst8288.assignment2.event;
 
 import com.algonquin.cst8288.assignment2.constants.Constants;
 
-/**
- *
- * @author ahmad
- */
-public class MovieNightEvent implements Event{
-    
+public class MovieNightEvent implements Event {
+
     protected String eventName = "movie night";
     protected String eventDescription = "";
     protected String eventActivities = "";
     protected double admissionFees;
-    
-    public MovieNightEvent() {this.admissionFees = calculateAdmissionFees();}
- 
+
+    /**
+     * Default constructor.
+     * Initializes admission fees based on constants.
+     */
+    public MovieNightEvent() {
+        this.admissionFees = calculateAdmissionFees();
+    }
+
     /**
      * @return the eventName
      */
     @Override
     public String getEventName() {
-            return eventName;
+        return eventName;
     }
 
     /**
@@ -29,7 +34,7 @@ public class MovieNightEvent implements Event{
      */
     @Override
     public void setEventName(String eventName) {
-            this.eventName = eventName;
+        this.eventName = eventName;
     }
 
     /**
@@ -37,7 +42,7 @@ public class MovieNightEvent implements Event{
      */
     @Override
     public String getEventDescription() {
-            return eventDescription;
+        return eventDescription;
     }
 
     /**
@@ -45,7 +50,7 @@ public class MovieNightEvent implements Event{
      */
     @Override
     public void setEventDescription(String eventDescription) {
-            this.eventDescription = eventDescription;
+        this.eventDescription = eventDescription;
     }
 
     /**
@@ -53,7 +58,7 @@ public class MovieNightEvent implements Event{
      */
     @Override
     public String getEventActivities() {
-            return eventActivities;
+        return eventActivities;
     }
 
     /**
@@ -61,7 +66,7 @@ public class MovieNightEvent implements Event{
      */
     @Override
     public void setEventActivities(String eventActivities) {
-            this.eventActivities = eventActivities;
+        this.eventActivities = eventActivities;
     }
 
     /**
@@ -69,7 +74,7 @@ public class MovieNightEvent implements Event{
      */
     @Override
     public double getAdmissionFees() {
-            return admissionFees;
+        return admissionFees;
     }
 
     /**
@@ -77,23 +82,31 @@ public class MovieNightEvent implements Event{
      */
     @Override
     public void setAdmissionFees(double admissionFees) {
-            this.admissionFees = admissionFees;
+        this.admissionFees = admissionFees;
     }
 
-    // Every library as it own admission fee
+    /**
+     * Calculates admission fees based on the duration and rate constants for Movie Night Event.
+     *
+     * @return The calculated admission fees.
+     */
     @Override
-    public double calculateAdmissionFees(){
+    public double calculateAdmissionFees() {
         return Constants.MOVIE_NIGHT_DURATION * Constants.MOVIE_NIGHT_RATE;
     }
 
+    /**
+     * Generates a string representation of the Movie Night Event.
+     *
+     * @return A string representation of the Movie Night Event.
+     */
     @Override
     public String toString() {
-         return "MovieNightEvent{" +
-            "eventName='" + eventName + '\'' +
-            ", eventDescription='" + eventDescription + '\'' +
-            ", eventActivities='" + eventActivities + '\'' +
-            ", admissionFees=" + admissionFees +
-            '}';
+        return "MovieNightEvent{" +
+                "eventName='" + eventName + '\'' +
+                ", eventDescription='" + eventDescription + '\'' +
+                ", eventActivities='" + eventActivities + '\'' +
+                ", admissionFees=" + admissionFees +
+                '}';
     }
-
 }

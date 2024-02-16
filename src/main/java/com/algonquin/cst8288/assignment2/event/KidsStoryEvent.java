@@ -1,30 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ * Represents a Kids Story Event.
+ * Extends the Event interface and provides implementation for event-specific details.
  */
 package com.algonquin.cst8288.assignment2.event;
 
 import com.algonquin.cst8288.assignment2.constants.Constants;
 
-/**
- *
- * @author ahmad
- */
-public class KidsStoryEvent implements Event{
-    
+public class KidsStoryEvent implements Event {
+
     protected String eventName = "kids story";
     protected String eventDescription = "";
     protected String eventActivities = "";
     protected double admissionFees;
-    
-    public KidsStoryEvent() {this.admissionFees = calculateAdmissionFees();}
- 
+
+    /**
+     * Default constructor.
+     * Initializes admission fees based on constants.
+     */
+    public KidsStoryEvent() {
+        this.admissionFees = calculateAdmissionFees();
+    }
+
     /**
      * @return the eventName
      */
     @Override
     public String getEventName() {
-            return eventName;
+        return eventName;
     }
 
     /**
@@ -32,7 +34,7 @@ public class KidsStoryEvent implements Event{
      */
     @Override
     public void setEventName(String eventName) {
-            this.eventName = eventName;
+        this.eventName = eventName;
     }
 
     /**
@@ -40,7 +42,7 @@ public class KidsStoryEvent implements Event{
      */
     @Override
     public String getEventDescription() {
-            return eventDescription;
+        return eventDescription;
     }
 
     /**
@@ -48,7 +50,7 @@ public class KidsStoryEvent implements Event{
      */
     @Override
     public void setEventDescription(String eventDescription) {
-            this.eventDescription = eventDescription;
+        this.eventDescription = eventDescription;
     }
 
     /**
@@ -56,7 +58,7 @@ public class KidsStoryEvent implements Event{
      */
     @Override
     public String getEventActivities() {
-            return eventActivities;
+        return eventActivities;
     }
 
     /**
@@ -64,7 +66,7 @@ public class KidsStoryEvent implements Event{
      */
     @Override
     public void setEventActivities(String eventActivities) {
-            this.eventActivities = eventActivities;
+        this.eventActivities = eventActivities;
     }
 
     /**
@@ -72,7 +74,7 @@ public class KidsStoryEvent implements Event{
      */
     @Override
     public double getAdmissionFees() {
-            return admissionFees;
+        return admissionFees;
     }
 
     /**
@@ -80,23 +82,31 @@ public class KidsStoryEvent implements Event{
      */
     @Override
     public void setAdmissionFees(double admissionFees) {
-            this.admissionFees = admissionFees;
+        this.admissionFees = admissionFees;
     }
 
-    // Every library as it own admission fee
+    /**
+     * Calculates admission fees based on the duration and rate constants for Kids Story Event.
+     *
+     * @return The calculated admission fees.
+     */
     @Override
-    public double calculateAdmissionFees(){
+    public double calculateAdmissionFees() {
         return Constants.KIDS_STORYTIME_DURATION * Constants.KIDS_STORYTIME_RATE;
     }
 
+    /**
+     * Generates a string representation of the Kids Story Event.
+     *
+     * @return A string representation of the Kids Story Event.
+     */
     @Override
     public String toString() {
         return "KidsStoryEvent{" +
-            "eventName='" + eventName + '\'' +
-            ", eventDescription='" + eventDescription + '\'' +
-            ", eventActivities='" + eventActivities + '\'' +
-            ", admissionFees=" + admissionFees +
-            '}';
+                "eventName='" + eventName + '\'' +
+                ", eventDescription='" + eventDescription + '\'' +
+                ", eventActivities='" + eventActivities + '\'' +
+                ", admissionFees=" + admissionFees +
+                '}';
     }
-
 }

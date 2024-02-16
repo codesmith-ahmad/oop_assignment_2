@@ -1,8 +1,11 @@
+/**
+ * Enumerates different types of events.
+ */
 package com.algonquin.cst8288.assignment2.event;
 
 public enum EventType {
-	 KIDS_STORY,
-	 MOVIE_NIGHT,
-	 WORKSHOP,
-         BOOK_LAUNCH
+    KIDS_STORY,
+    MOVIE_NIGHT,
+    WORKSHOP,
+    BOOK_LAUNCH
 }

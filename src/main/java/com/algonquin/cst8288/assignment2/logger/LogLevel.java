@@ -1,3 +1,6 @@
+/*
+ * Enumeration representing different log levels.
+ */
 package com.algonquin.cst8288.assignment2.logger;
 
 public enum LogLevel {
@@ -9,6 +12,11 @@ public enum LogLevel {
 
     final int level;
 
+    /**
+     * Constructor to set the log level.
+     * 
+     * @param level The log level.
+     */
     LogLevel(int level) {
         this.level = level;
     }

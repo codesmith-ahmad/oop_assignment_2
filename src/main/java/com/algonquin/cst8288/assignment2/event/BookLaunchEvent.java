@@ -1,91 +1,119 @@
-
+/**
+ * Represents a book launch event with specific properties and behavior.
+ */
 package com.algonquin.cst8288.assignment2.event;
 
 import com.algonquin.cst8288.assignment2.constants.Constants;
 
-/**
- *
- * @author ahmad
- */
-public class BookLaunchEvent implements Event{
+public class BookLaunchEvent implements Event {
     
     protected String eventName = "book launch";
     protected String eventDescription = "";
     protected String eventActivities = "";
     protected double admissionFees;
     
-    public BookLaunchEvent() {this.admissionFees = calculateAdmissionFees();}
+    /**
+     * Constructs a BookLaunchEvent object with calculated admission fees.
+     */
+    public BookLaunchEvent() {
+        this.admissionFees = calculateAdmissionFees();
+    }
  
     /**
-     * @return the eventName
+     * Gets the event name.
+     *
+     * @return The event name.
      */
     @Override
     public String getEventName() {
-            return eventName;
+        return eventName;
     }
 
     /**
-     * @param eventName the eventName to set
+     * Sets the event name.
+     *
+     * @param eventName The event name to set.
      */
     @Override
     public void setEventName(String eventName) {
-            this.eventName = eventName;
+        this.eventName = eventName;
     }
 
     /**
-     * @return the eventDescription
+     * Gets the event description.
+     *
+     * @return The event description.
      */
     @Override
     public String getEventDescription() {
-            return eventDescription;
+        return eventDescription;
     }
 
     /**
-     * @param eventDescription the eventDescription to set
+     * Sets the event description.
+     *
+     * @param eventDescription The event description to set.
      */
     @Override
     public void setEventDescription(String eventDescription) {
-            this.eventDescription = eventDescription;
+        this.eventDescription = eventDescription;
     }
 
     /**
-     * @return the eventActivities
+     * Gets the event activities.
+     *
+     * @return The event activities.
      */
     @Override
     public String getEventActivities() {
-            return eventActivities;
+        return eventActivities;
     }
 
     /**
-     * @param eventActivities the eventActivities to set
+     * Sets the event activities.
+     *
+     * @param eventActivities The event activities to set.
      */
     @Override
     public void setEventActivities(String eventActivities) {
-            this.eventActivities = eventActivities;
+        this.eventActivities = eventActivities;
     }
 
     /**
-     * @return the admissionFees
+     * Gets the admission fees.
+     *
+     * @return The admission fees.
      */
     @Override
     public double getAdmissionFees() {
-            return admissionFees;
+        return admissionFees;
     }
 
     /**
-     * @param admissionFees the admissionFees to set
+     * Sets the admission fees.
+     *
+     * @param admissionFees The admission fees to set.
      */
     @Override
     public void setAdmissionFees(double admissionFees) {
-            this.admissionFees = admissionFees;
+        this.admissionFees = admissionFees;
     }
 
-    // Every library as it own admission fee
+    /**
+     * Calculates the admission fees based on predefined constants.
+     *
+     * @return The calculated admission fees.
+     */
     @Override
-    public double calculateAdmissionFees(){
+    public double calculateAdmissionFees() {
         return Constants.BOOK_LAUCH_DURATION * Constants.BOOK_LAUCH_RATE;
     }
 
+    /**
+     * Returns a string representation of the BookLaunchEvent.
+     *
+     * @return String representation of the BookLaunchEvent.
+     */
     @Override
     public String toString() {
         return "BookLaunchEvent{" +
@@ -95,5 +123,4 @@ public class BookLaunchEvent implements Event{
             ", admissionFees=" + admissionFees +
             '}';
     }
-
 }
