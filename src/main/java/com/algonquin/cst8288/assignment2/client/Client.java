@@ -5,6 +5,7 @@ import com.algonquin.cst8288.assignment2.event.Event;
 import com.algonquin.cst8288.assignment2.factory.*;
 import com.algonquin.cst8288.assignment2.logger.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Client {
     
@@ -22,7 +23,20 @@ public class Client {
         
         initializeDatabase("bookvault");
         
-        populateDatabase(events);
+        // Create table 'events'
+        String sql = """
+                     CREATE TABLE IF NOT EXISTS events (
+                        event_id INT PRIMARY KEY AUTO_INCREMENT,
+                        event_name VARCHAR(255) NOT NULL,
+                        event_description TEXT NOT NULL,
+                        event_activities TEXT NOT NULL,
+                        admission_fees DECIMAL(4, 2) NOT NULL
+                     );
+                     """;
+        DBOperations.executeUpdate(sql);
+        l.log("Table 'events' created");
+        
+        populateTable("events",events);
         
         // step 5 and 6 in lab instruction
 //        operateDatabase(); // loop; all ressources closed within
@@ -63,29 +77,28 @@ public class Client {
         l.log("Schema " + schema + " initialized");
     }
     
-    private static void populateDatabase(HashMap<String,Event> map) {
-        
-        String sql2 = """
-                     CREATE TABLE IF NOT EXISTS x (
-                        event_id INT PRIMARY KEY AUTO_INCREMENT,
-                        event_name VARCHAR(255) NOT NULL,
-                        event_description TEXT,
-                        event_activities TEXT,
-                        admission_fees DECIMAL(4, 2) NOT NULL
-                     );
-                     """;
-        
+    private static void populateTable(String table, Map m){
+        switch (table){
+            case "events" -> {populateEvents(m);}
+            default -> {l.log(LogLevel.ERROR, "No such table");}
+        }
+    }
+    
+    private static void populateEvents(Map<String,Event> m) {
         String sql = "";
-        for (Event e : map.values()){
-            sql += String.format(
-                    "INSERT INTO events VALUES ('%s','%s','%s',%f);\n",
+        for (Event e : m.values()){
+            sql = String.format("""
+                                 INSERT INTO events
+                                 (event_name, event_description, event_activities, admission_fees) 
+                                 VALUES ('%s','%s','%s',%f);
+                                 """,
                     e.getEventName(),
                     e.getEventDescription(),
                     e.getEventActivities(),
                     e.getAdmissionFees()
                     );
+            DBOperations.executeUpdate(sql); // CANNOT EXECUTE ALL AT ONCE!
         }
-        DBOperations.executeUpdate(sql);
     }
 
     private static void operateDatabase() {

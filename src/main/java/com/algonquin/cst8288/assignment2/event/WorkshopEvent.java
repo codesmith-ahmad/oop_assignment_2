@@ -13,8 +13,8 @@ import com.algonquin.cst8288.assignment2.constants.Constants;
 public class WorkshopEvent implements Event{
     
     protected String eventName = "workshop";
-    protected String eventDescription;
-    protected String eventActivities;
+    protected String eventDescription = ""; //escape NULL
+    protected String eventActivities = "";
     protected double admissionFees;
     
     public WorkshopEvent() {this.admissionFees = calculateAdmissionFees();}

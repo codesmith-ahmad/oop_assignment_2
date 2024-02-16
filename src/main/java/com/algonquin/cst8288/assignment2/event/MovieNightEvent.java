@@ -10,8 +10,8 @@ import com.algonquin.cst8288.assignment2.constants.Constants;
 public class MovieNightEvent implements Event{
     
     protected String eventName = "movie night";
-    protected String eventDescription;
-    protected String eventActivities;
+    protected String eventDescription = "";
+    protected String eventActivities = "";
     protected double admissionFees;
     
     public MovieNightEvent() {this.admissionFees = calculateAdmissionFees();}

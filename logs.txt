@@ -1,24 +1,57 @@
 
-[2024-02-15 18:44:59] logs.txt - INFO: Application starting...
+[2024-02-15 19:21:35] logs.txt - INFO: Application starting...
 
-[2024-02-15 18:44:59] logs.txt - INFO: Created two factories
+[2024-02-15 19:21:35] logs.txt - INFO: Created two factories
 
-[2024-02-15 18:44:59] logs.txt - INFO: Events created
+[2024-02-15 19:21:35] logs.txt - INFO: Events created
 
-[2024-02-15 18:44:59] logs.txt - INFO: Connected to database (com.mysql.cj.jdbc.ConnectionImpl@6b2ea799)
+[2024-02-15 19:21:35] logs.txt - INFO: Connected to database (com.mysql.cj.jdbc.ConnectionImpl@6b2ea799)
 
-[2024-02-15 18:44:59] logs.txt - INFO: QUERY: DROP DATABASE IF EXISTS bookvault
-0 rows affected
-
-[2024-02-15 18:44:59] logs.txt - INFO: QUERY: CREATE DATABASE bookvault
+[2024-02-15 19:21:35] logs.txt - INFO: QUERY: DROP DATABASE IF EXISTS bookvault
 1 row affected
 
-[2024-02-15 18:44:59] logs.txt - INFO: QUERY: USE bookvault
+[2024-02-15 19:21:35] logs.txt - INFO: QUERY: CREATE DATABASE bookvault
+1 row affected
+
+[2024-02-15 19:21:35] logs.txt - INFO: QUERY: USE bookvault
 0 rows affected
 
-[2024-02-15 18:44:59] logs.txt - INFO: Schema bookvault initialized
+[2024-02-15 19:21:35] logs.txt - INFO: Schema bookvault initialized
 
-[2024-02-15 18:44:59] logs.txt - ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSERT INTO events VALUES ('workshop','null','null',15.000000);
-INSERT INTO even' at line 2
+[2024-02-15 19:21:35] logs.txt - INFO: QUERY: CREATE TABLE IF NOT EXISTS events (
+   event_id INT PRIMARY KEY AUTO_INCREMENT,
+   event_name VARCHAR(255) NOT NULL,
+   event_description TEXT NOT NULL,
+   event_activities TEXT NOT NULL,
+   admission_fees DECIMAL(4, 2) NOT NULL
+);
 
-[2024-02-15 18:44:59] logs.txt - INFO: END OF PROGRAM
+0 rows affected
+
+[2024-02-15 19:21:35] logs.txt - INFO: Table 'events' created
+
+[2024-02-15 19:21:35] logs.txt - INFO: QUERY: INSERT INTO events
+(event_name, event_description, event_activities, admission_fees)
+VALUES ('movie night','','',7.500000);
+
+1 row affected
+
+[2024-02-15 19:21:35] logs.txt - INFO: QUERY: INSERT INTO events
+(event_name, event_description, event_activities, admission_fees)
+VALUES ('workshop','','',15.000000);
+
+1 row affected
+
+[2024-02-15 19:21:35] logs.txt - INFO: QUERY: INSERT INTO events
+(event_name, event_description, event_activities, admission_fees)
+VALUES ('book launch','','',9.000000);
+
+1 row affected
+
+[2024-02-15 19:21:35] logs.txt - INFO: QUERY: INSERT INTO events
+(event_name, event_description, event_activities, admission_fees)
+VALUES ('kids story','','',3.000000);
+
+1 row affected
+
+[2024-02-15 19:21:35] logs.txt - INFO: END OF PROGRAM
