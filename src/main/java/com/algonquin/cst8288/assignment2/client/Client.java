@@ -85,7 +85,7 @@ public class Client {
     }
     
     private static void populateEvents(Map<String,Event> m) {
-        String sql = "";
+        String sql;
         for (Event e : m.values()){
             sql = String.format("""
                                  INSERT INTO events

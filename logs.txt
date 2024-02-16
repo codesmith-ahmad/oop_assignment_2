@@ -1,24 +1,24 @@
 
-[2024-02-15 19:26:07] logs.txt - INFO: Application starting...
+[2024-02-15 19:55:48] logs.txt - INFO: Application starting...
 
-[2024-02-15 19:26:07] logs.txt - INFO: Created two factories
+[2024-02-15 19:55:48] logs.txt - INFO: Created two factories
 
-[2024-02-15 19:26:07] logs.txt - INFO: Events created
+[2024-02-15 19:55:48] logs.txt - INFO: Events created
 
-[2024-02-15 19:26:07] logs.txt - INFO: Connected to database (com.mysql.cj.jdbc.ConnectionImpl@6b2ea799)
+[2024-02-15 19:55:48] logs.txt - INFO: Connected to database (com.mysql.cj.jdbc.ConnectionImpl@6b2ea799)
 
-[2024-02-15 19:26:07] logs.txt - INFO: QUERY: DROP DATABASE IF EXISTS bookvault
+[2024-02-15 19:55:48] logs.txt - INFO: QUERY: DROP DATABASE IF EXISTS bookvault
 1 row affected
 
-[2024-02-15 19:26:07] logs.txt - INFO: QUERY: CREATE DATABASE bookvault
+[2024-02-15 19:55:48] logs.txt - INFO: QUERY: CREATE DATABASE bookvault
 1 row affected
 
-[2024-02-15 19:26:07] logs.txt - INFO: QUERY: USE bookvault
+[2024-02-15 19:55:48] logs.txt - INFO: QUERY: USE bookvault
 0 rows affected
 
-[2024-02-15 19:26:07] logs.txt - INFO: Schema bookvault initialized
+[2024-02-15 19:55:48] logs.txt - INFO: Schema bookvault initialized
 
-[2024-02-15 19:26:07] logs.txt - INFO: QUERY: CREATE TABLE IF NOT EXISTS events (
+[2024-02-15 19:55:48] logs.txt - INFO: QUERY: CREATE TABLE IF NOT EXISTS events (
    event_id INT PRIMARY KEY AUTO_INCREMENT,
    event_name VARCHAR(255) NOT NULL,
    event_description TEXT NOT NULL,
@@ -28,45 +28,32 @@
 
 0 rows affected
 
-[2024-02-15 19:26:07] logs.txt - INFO: Table 'events' created
+[2024-02-15 19:55:48] logs.txt - INFO: Table 'events' created
 
-[2024-02-15 19:26:07] logs.txt - INFO: QUERY: INSERT INTO events
+[2024-02-15 19:55:48] logs.txt - INFO: QUERY: INSERT INTO events
 (event_name, event_description, event_activities, admission_fees)
 VALUES ('movie night','','',7.500000);
 
 1 row affected
 
-[2024-02-15 19:26:07] logs.txt - INFO: QUERY: INSERT INTO events
+[2024-02-15 19:55:48] logs.txt - INFO: QUERY: INSERT INTO events
 (event_name, event_description, event_activities, admission_fees)
 VALUES ('workshop','','',15.000000);
 
 1 row affected
 
-[2024-02-15 19:26:07] logs.txt - INFO: QUERY: INSERT INTO events
+[2024-02-15 19:55:48] logs.txt - INFO: QUERY: INSERT INTO events
 (event_name, event_description, event_activities, admission_fees)
 VALUES ('book launch','','',9.000000);
 
 1 row affected
 
-[2024-02-15 19:26:07] logs.txt - INFO: QUERY: INSERT INTO events
+[2024-02-15 19:55:48] logs.txt - INFO: QUERY: INSERT INTO events
 (event_name, event_description, event_activities, admission_fees)
 VALUES ('kids story','','',3.000000);
 
 1 row affected
 
-[2024-02-15 19:26:07] logs.txt - INFO: Entered database operations loop
+[2024-02-15 19:55:48] logs.txt - INFO: Entered database operations loop
 
-[2024-02-15 19:26:39] logs.txt - INFO: Executed select query: select * from events
-
-[2024-02-15 19:27:06] logs.txt - INFO: QUERY: update events set event_description = 'fun'
-4 rows affected
-
-[2024-02-15 19:27:06] logs.txt - INFO: Executed update query: update events set event_description = 'fun'
-
-[2024-02-15 19:27:22] logs.txt - ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dfgsdfg' at line 1
-
-[2024-02-15 19:27:22] logs.txt - INFO: Executed update query: dfgsdfg
-
-[2024-02-15 19:27:50] logs.txt - INFO: User input: exit
-
-[2024-02-15 19:27:50] logs.txt - INFO: END OF PROGRAM
+[2024-02-15 19:55:55] logs.txt - INFO: Executed select query: select * from events

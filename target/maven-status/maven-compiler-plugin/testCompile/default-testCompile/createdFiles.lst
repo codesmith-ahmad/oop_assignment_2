@@ -1,0 +1,6 @@
+com\algonquin\cst8288\assignment2\database\DBConnectionTest.class
+com\algonquin\cst8288\assignment2\event\BookLaunchEventTest.class
+com\algonquin\cst8288\assignment2\event\KidsStoryEventTest.class
+com\algonquin\cst8288\assignment2\event\MovieNightEventTest.class
+com\algonquin\cst8288\assignment2\logger\LMSLoggerTest.class
+com\algonquin\cst8288\assignment2\event\WorkshopEventTest.class
