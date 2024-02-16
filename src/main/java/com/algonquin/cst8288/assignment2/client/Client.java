@@ -39,7 +39,7 @@ public class Client {
         populateTable("events",events);
         
         // step 5 and 6 in lab instruction
-//        operateDatabase(); // loop; all ressources closed within
+        operateDatabase(); // loop; all ressources closed within
         
         l.log("END OF PROGRAM");
     }
